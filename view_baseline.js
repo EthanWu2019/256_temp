@@ -1,6 +1,36 @@
 // Configuration
 show_starter_dialogs = false // set this to "false" to disable the survey and 3-minute timer. Set to "true" before submitting to MTurk!!
 
+function get_file_state_string(filepath) {
+    let file_obj = path_to_file[filepath];
+    if (!file_obj) return "";
+    
+    let acl_strings = file_obj.acl.map(function(ace) {
+        return get_user_name(ace.who) + "_" + ace.permission + "_" + ace.is_allow_ace;
+    });
+    acl_strings.sort();
+    
+    let acl_str = acl_strings.join(";");
+    let owner_str = get_user_name(file_obj.owner);
+    let inherit_str = file_obj.using_permission_inheritance;
+    
+    return acl_str + "|" + owner_str + "|" + inherit_str;
+}
+
+function check_and_update_button(dialog_jq, button_id) {
+    let filepath = dialog_jq.attr('filepath');
+    if (!filepath) return;
+    
+    let current_state = get_file_state_string(filepath);
+    let initial_state = dialog_jq.attr('initial_state');
+    
+    if (initial_state !== undefined && current_state === initial_state) {
+        $('#' + button_id).text('OK');
+    } else {
+        $('#' + button_id).text('Update');
+    }
+}
+
 // ---- Set up main Permissions dialog ----
 
 // --- Create all the elements, and connect them as needed: ---
@@ -235,6 +265,10 @@ function open_permission_entry(file_path) {
 
     $('.perm_entry_checkcell').empty()
 
+    $('#permentry').attr('filepath', file_path);
+    $('#permentry').attr('initial_state', get_file_state_string(file_path));
+    $('#permission-entry-ok-button').text('OK');
+
     $(`#permentry`).dialog('open')
 }
 
@@ -284,6 +318,9 @@ function open_advanced_dialog(file_path) {
     $('#adv_owner_current_owner').text(get_user_name(file_obj.owner))
 
     $('#adv_owner_user_list').append(all_user_list)
+
+    $('#advdialog').attr('initial_state', get_file_state_string(file_path));
+    $('#advanced-dialog-ok-button').text('OK');
 
     // open dialog:
     $(`#advdialog`).dialog('open')
@@ -739,3 +776,17 @@ $('#survey-form').submit(function(){
     $('#survey-dialog').dialog( "close" );
     event.preventDefault();
 })
+
+$('body').on('click change', function() {
+    setTimeout(function() {
+        if ($('#permdialog').hasClass('ui-dialog-content') && $('#permdialog').dialog('isOpen')) {
+            check_and_update_button($('#permdialog'), 'perm-dialog-ok-button');
+        }
+        if ($('#advdialog').hasClass('ui-dialog-content') && $('#advdialog').dialog('isOpen')) {
+            check_and_update_button($('#advdialog'), 'advanced-dialog-ok-button');
+        }
+        if ($('#permentry').hasClass('ui-dialog-content') && $('#permentry').dialog('isOpen')) {
+            check_and_update_button($('#permentry'), 'permission-entry-ok-button');
+        }
+    }, 50);
+});

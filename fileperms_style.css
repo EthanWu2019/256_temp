@@ -1,6 +1,5 @@
 /* ============================================================
-   fileperms_style.css  —  Clean redesign
-   Replace the original fileperms_style.css with this file.
+   fileperms_style.css  —  Clean redesign with Usability Enhancements
    ============================================================ */
 
 /* ── Reset & base ── */
@@ -25,11 +24,12 @@ body, button, input, select, textarea {
 
 .section { margin-bottom: 10px; }
 
-/* ── Selected list item ── */
+/* ── Selected list item (强调当前选中的用户) ── */
 .ui-selected {
-  background: #eaf2ff !important;
-  color: #1a5fb4 !important;
+  background: #1a73e8 !important;
+  color: #fff !important;
   border-radius: 4px;
+  font-weight: 600;
 }
 
 /* ── Fixed footer arrow / collapse button ── */
@@ -153,7 +153,7 @@ body, button, input, select, textarea {
   border-color: #bbb !important;
 }
 
-/* Primary action button (OK / Yes / Submit) — first button gets accent */
+/* Primary action button */
 .ui-dialog-buttonpane button:first-child {
   background: #111 !important;
   color: #fff !important;
@@ -178,8 +178,25 @@ body, button, input, select, textarea {
   background: #ffe0e0 !important;
 }
 
-/* Add user / perm buttons */
-#perm_add_user_button,
+/* Add user / perm buttons (重点高亮添加按钮) */
+#perm_add_user_button {
+  background: #1a73e8 !important;
+  border: 1px solid #1557b0 !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  padding: 8px 16px !important;
+  cursor: pointer !important;
+  transition: background 0.12s;
+}
+#perm_add_user_button::before {
+  content: "+ ";
+}
+#perm_add_user_button:hover {
+  background: #1557b0 !important;
+}
+
 .ui-button.permbutton {
   background: #fff !important;
   border: 1px solid #ddd !important;
@@ -190,7 +207,6 @@ body, button, input, select, textarea {
   cursor: pointer !important;
   transition: background 0.12s;
 }
-#perm_add_user_button:hover,
 .ui-button.permbutton:hover {
   background: #f5f5f5 !important;
   border-color: #bbb !important;
@@ -227,7 +243,6 @@ body, button, input, select, textarea {
   font-size: 13px;
 }
 .grouped-perm-table th {
-  background: #f7f7f7;
   padding: 6px 10px;
   text-align: left;
   font-size: 11px;
@@ -236,10 +251,11 @@ body, button, input, select, textarea {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-bottom: 1px solid #e8e8e8;
+  background: #f7f7f7;
 }
 .grouped-perm-table th:not(:first-child) {
   text-align: center;
-  border-left: 2px solid #c0c0c0; /* ← Allow/Deny 列分隔线 */
+  border-left: 2px solid #c0c0c0;
 }
 .grouped-perm-table td {
   padding: 7px 10px;
@@ -248,16 +264,35 @@ body, button, input, select, textarea {
   vertical-align: middle;
 }
 .grouped-perm-table tr:last-child td { border-bottom: none; }
-.grouped-perm-table tr:hover td { background: #fafafa; }
+.grouped-perm-table tr:hover td { filter: brightness(0.98); }
 .grouped-perm-table td:not(:first-child) {
   text-align: center;
-  border-left: 2px solid #e8e8e8; /* ← Allow/Deny 列分隔线 */
+  border-left: 2px solid #e8e8e8;
 }
-.grouped-perm-table input[type="checkbox"] {
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-  accent-color: #1a73e8;
+
+/* 强化“允许”和“拒绝”的色彩对比 */
+.grouped-perm-table th:nth-child(2), #perm_entry_table th:nth-child(2) {
+  background-color: #eafaf1 !important;
+  color: #27ae60 !important;
+}
+.grouped-perm-table td:nth-child(2), #perm_entry_table td:nth-child(2) {
+  background-color: #f5fdf8 !important;
+}
+.grouped-perm-table th:nth-child(3), #perm_entry_table th:nth-child(3) {
+  background-color: #fdedec !important;
+  color: #c0392b !important;
+}
+.grouped-perm-table td:nth-child(3), #perm_entry_table td:nth-child(3) {
+  background-color: #fef9f8 !important;
+}
+/* 给多选框加上对应颜色的强调 */
+.grouped-perm-table td:nth-child(2) input[type="checkbox"], 
+#perm_entry_table td:nth-child(2) input[type="checkbox"] {
+  accent-color: #2ecc71;
+}
+.grouped-perm-table td:nth-child(3) input[type="checkbox"], 
+#perm_entry_table td:nth-child(3) input[type="checkbox"] {
+  accent-color: #e74c3c;
 }
 
 /* ── Advanced dialog table ── */
@@ -331,11 +366,9 @@ body, button, input, select, textarea {
 
 /* ── "Group or user names:" label ── */
 #permissions_user_title {
-  font-size: 11px;
-  font-weight: 600;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 5px;
 }
 
@@ -350,20 +383,20 @@ body, button, input, select, textarea {
 #permission_subsets_info {
   background: #f0f5ff;
   border: 1px solid #c7d9f8;
-  border-radius: 7px 7px 0 0;  /* 下方不圆角，和表格连接 */
-  padding: 8px 11px;            /* 减少上下内边距 */
+  border-radius: 7px 7px 0 0;
+  padding: 8px 11px;
   font-size: 11px;
   color: #444;
   margin-top: 0;
-  margin-bottom: 0;             /* 和表格之间无间距 */
-  line-height: 1.4;             /* 减少行高 */
+  margin-bottom: 0;
+  line-height: 1.4;
 }
 #permission_subsets_info strong {
   font-size: 12px;
   font-weight: 650;
   color: #333;
   display: block;
-  margin-bottom: 2px;           /* 减少标题下方间距 */
+  margin-bottom: 2px;
 }
 
 /* ── Inheritance checkboxes ── */
@@ -383,15 +416,6 @@ body, button, input, select, textarea {
   margin-top: 2px;
   accent-color: #1a73e8;
   flex-shrink: 0;
-}
-
-/* ── Warning text ── */
-#adv_perm_replace_child_permissions_label::after {
-  content: " ⚠ This will overwrite existing permissions on child objects.";
-  display: block;
-  font-size: 11px;
-  color: #c0392b;
-  margin-top: 2px;
 }
 
 /* ── Folder accordion ── */
@@ -415,18 +439,19 @@ body, button, input, select, textarea {
 
 /* ── "Open Permissions" file-tree buttons ── */
 .permbutton {
-  background: transparent !important;
-  border: 1px solid #e0e0e0 !important;
-  color: #555 !important;
+  background: #f8f9fa !important;
+  border: 1px solid #ccc !important;
+  color: #333 !important;
   border-radius: 5px !important;
-  padding: 3px 9px !important;
-  font-size: 11px !important;
+  padding: 4px 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
   cursor: pointer !important;
-  margin-left: 8px !important;
+  margin-left: 12px !important;
   transition: background 0.12s, border-color 0.12s;
 }
 .permbutton:hover {
-  background: #f0f0f0 !important;
+  background: #e2e6ea !important;
   border-color: #bbb !important;
 }
 
@@ -452,11 +477,7 @@ body, button, input, select, textarea {
     border: 1px orange solid;
 }
 
-.no-close .ui-dialog-titlebar-close {
-    display: none;
-}
-
-/* --- Added for Risk Aversion: Highlight dangerous actions --- */
+/* --- Warning and Risk Aversion --- */
 .btn-danger {
     background-color: #ff4d4d !important;
     color: white !important;
@@ -467,13 +488,14 @@ body, button, input, select, textarea {
     background-color: #cc0000 !important;
 }
 
-/* Added for Risk Aversion: Make warning text stand out */
 .warning-text {
     color: #cc0000;
     font-weight: bold;
     padding: 10px;
-    background-color: #ffeeee;
-    border: 1px solid #cc0000;
+    background-color: #fff0f0;
+    border: 1px solid #ffcccc;
+    border-left: 4px solid #cc0000;
     border-radius: 4px;
     margin-bottom: 10px;
+    font-size: 13px;
 }

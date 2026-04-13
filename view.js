@@ -60,6 +60,10 @@ $('.permbutton').click( function( e ) {
     // Set the path and open dialog:
     let path = e.currentTarget.getAttribute('path');
     perm_dialog.attr('filepath', path)
+    
+    perm_dialog.attr('initial_state', get_file_state_string(path));
+    $('#perm-dialog-ok-button').text('OK');
+    
     perm_dialog.dialog('open')
     //open_permissions_dialog(path)
 

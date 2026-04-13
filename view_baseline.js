@@ -37,8 +37,8 @@ function check_and_update_button(dialog_jq, button_id) {
 // Make permissions dialog:
 perm_dialog = define_new_dialog('permdialog', title='Permissions', options = {
     // The following are standard jquery-ui options. See https://jqueryui.com/dialog/
-    height: 500,
-    width: 400,
+    height: 700,
+    width: 500,
     buttons: {
         OK:{
             text: "OK",

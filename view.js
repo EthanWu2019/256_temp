@@ -80,6 +80,6 @@ $('#html-loc').find('*').uniqueId()
 
 // -- Code that runs after everything is loaded
 // Modified for Tinkering: Commented out the override scripts to prevent them from breaking the new button labels we added in view_baseline.js
-// $(".permbutton").append("Open Permissions");
+// $(".permbutton").append("Open Permissions"); 
 // $("#perm_add_user_button").html("Add New User");
 // $("#perm_remove_user").html("Remove User");

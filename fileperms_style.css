@@ -1,0 +1,479 @@
+/* ============================================================
+   fileperms_style.css  —  Clean redesign
+   Replace the original fileperms_style.css with this file.
+   ============================================================ */
+
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body, button, input, select, textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ── File / folder rows ── */
+.file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+  color: #333;
+  transition: background 0.1s;
+}
+.file:hover { background: #f8f8f8; }
+
+.section { margin-bottom: 10px; }
+
+/* ── Selected list item ── */
+.ui-selected {
+  background: #eaf2ff !important;
+  color: #1a5fb4 !important;
+  border-radius: 4px;
+}
+
+/* ── Fixed footer arrow / collapse button ── */
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+/* ── Task banner (bottom slide-up panel) ── */
+#mturk-top-banner-drop-down-content {
+  position: absolute;
+  width: 99%;
+  bottom: 0;
+  top: unset;
+  left: 0;
+  background: #fff;
+  z-index: 100;
+  padding: 14px 16px;
+  border-top: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.07);
+  font-size: 13px;
+  color: #444;
+}
+
+/* ── Top banner ── */
+#mturk-top-banner {
+  background: #1e1e1e;
+  color: #fff;
+}
+#mturk-top-banner-text {
+  font-size: 13px;
+  color: #ccc;
+}
+
+/* Back button — calm, not red */
+.mturk-top-banner-back-woh {
+  background: transparent !important;
+  border: 1px solid #555 !important;
+  color: #ddd !important;
+  border-radius: 5px !important;
+  padding: 4px 12px !important;
+  font-size: 12px !important;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.mturk-top-banner-back-woh:hover {
+  background: rgba(255,255,255,0.1) !important;
+}
+
+/* ── jQuery UI dialog overrides ── */
+
+/* Dialog wrapper */
+.ui-dialog {
+  border: 1px solid #ddd !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  overflow: hidden;
+  padding: 0 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Title bar */
+.ui-dialog-titlebar {
+  background: #fff !important;
+  border: none !important;
+  border-bottom: 1px solid #ebebeb !important;
+  padding: 13px 16px 12px !important;
+  border-radius: 10px 10px 0 0 !important;
+}
+.ui-dialog-title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #111 !important;
+}
+.ui-dialog-titlebar-close {
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  border: 1px solid #ddd !important;
+  background: #f5f5f5 !important;
+  top: 50% !important;
+  right: 12px !important;
+  margin-top: -11px !important;
+}
+.ui-dialog-titlebar-close:hover { background: #eee !important; }
+.ui-icon-closethick { background-position: -96px -128px !important; }
+
+/* Dialog content */
+.ui-dialog-content {
+  padding: 14px 16px !important;
+  color: #333;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Dialog button pane */
+.ui-dialog-buttonpane {
+  background: #fafafa !important;
+  border-top: 1px solid #ebebeb !important;
+  padding: 10px 14px !important;
+  margin: 0 !important;
+}
+.ui-dialog-buttonpane button {
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 6px 16px !important;
+  cursor: pointer !important;
+  margin: 0 4px 0 0 !important;
+  border: 1px solid #ddd !important;
+  background: #fff !important;
+  color: #333 !important;
+  transition: background 0.12s, border-color 0.12s;
+}
+.ui-dialog-buttonpane button:hover {
+  background: #f0f0f0 !important;
+  border-color: #bbb !important;
+}
+
+/* Primary action button (OK / Yes / Submit) — first button gets accent */
+.ui-dialog-buttonpane button:first-child {
+  background: #111 !important;
+  color: #fff !important;
+  border-color: #111 !important;
+}
+.ui-dialog-buttonpane button:first-child:hover {
+  background: #333 !important;
+}
+
+/* Remove User button — subtle danger style */
+#perm_remove_user {
+  background: #fff0f0 !important;
+  border: 1px solid #fcc !important;
+  color: #c0392b !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  padding: 5px 12px !important;
+  cursor: pointer !important;
+  transition: background 0.12s;
+}
+#perm_remove_user:hover {
+  background: #ffe0e0 !important;
+}
+
+/* Add user / perm buttons */
+#perm_add_user_button,
+.ui-button.permbutton {
+  background: #fff !important;
+  border: 1px solid #ddd !important;
+  color: #333 !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  padding: 5px 12px !important;
+  cursor: pointer !important;
+  transition: background 0.12s;
+}
+#perm_add_user_button:hover,
+.ui-button.permbutton:hover {
+  background: #f5f5f5 !important;
+  border-color: #bbb !important;
+}
+
+/* ── Selectable user list ── */
+.selectlist {
+  border: 1px solid #e8e8e8 !important;
+  border-radius: 7px !important;
+  overflow: hidden;
+  background: #fff;
+}
+.selectlist .ui-widget-content {
+  padding: 7px 10px;
+  font-size: 13px;
+  color: #333;
+  border-bottom: 1px solid #f2f2f2;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.1s;
+}
+.selectlist .ui-widget-content:last-child { border-bottom: none; }
+.selectlist .ui-widget-content:hover { background: #f8f8f8; }
+
+/* ── Grouped permission checkboxes table ── */
+.grouped-perm-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e8e8e8;
+  border-radius: 0 0 7px 7px;  
+  overflow: hidden;
+  font-size: 13px;
+}
+.grouped-perm-table th {
+  background: #f7f7f7;
+  padding: 6px 10px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e8e8e8;
+}
+.grouped-perm-table th:not(:first-child) {
+  text-align: center;
+  border-left: 2px solid #c0c0c0; /* ← Allow/Deny 列分隔线 */
+}
+.grouped-perm-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #f2f2f2;
+  color: #333;
+  vertical-align: middle;
+}
+.grouped-perm-table tr:last-child td { border-bottom: none; }
+.grouped-perm-table tr:hover td { background: #fafafa; }
+.grouped-perm-table td:not(:first-child) {
+  text-align: center;
+  border-left: 2px solid #e8e8e8; /* ← Allow/Deny 列分隔线 */
+}
+.grouped-perm-table input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: #1a73e8;
+}
+
+/* ── Advanced dialog table ── */
+#adv_perm_table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+#adv_perm_table th {
+  background: #f7f7f7;
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e8e8e8;
+}
+#adv_perm_table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #f2f2f2;
+  color: #444;
+}
+#adv_perm_table tr:last-child td { border-bottom: none; }
+#adv_perm_table tr:hover td { background: #fafafa; }
+
+/* ── jQuery UI tabs ── */
+.ui-tabs { border: none !important; background: transparent !important; padding: 0 !important; }
+.ui-tabs-nav {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid #e8e8e8 !important;
+  padding: 0 0 0 4px !important;
+  margin-bottom: 12px !important;
+}
+.ui-tabs-nav li {
+  border: none !important;
+  background: transparent !important;
+  margin-right: 2px !important;
+}
+.ui-tabs-nav li a {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #888 !important;
+  padding: 7px 14px !important;
+}
+.ui-tabs-nav li.ui-tabs-active {
+  border-bottom: 2px solid #1a73e8 !important;
+  margin-bottom: -1px !important;
+}
+.ui-tabs-nav li.ui-tabs-active a { color: #1a73e8 !important; }
+
+/* ── Object name display ── */
+#permdialog_objname,
+#adv_perm_object_name,
+#adv_owner_object_name,
+#adv_effective_object_name {
+  background: #f7f7f7;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-family: "SF Mono", "Fira Code", monospace;
+  color: #555;
+  margin-bottom: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── "Group or user names:" label ── */
+#permissions_user_title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+}
+
+/* ── Advanced explanation text ── */
+#permdialog_advanced_explantion_text {
+  font-size: 11px;
+  color: #888;
+  margin-top: 10px;
+}
+
+/* ── "Permission Subsets" info box ── */
+#permission_subsets_info {
+  background: #f0f5ff;
+  border: 1px solid #c7d9f8;
+  border-radius: 7px 7px 0 0;  /* 下方不圆角，和表格连接 */
+  padding: 8px 11px;            /* 减少上下内边距 */
+  font-size: 11px;
+  color: #444;
+  margin-top: 0;
+  margin-bottom: 0;             /* 和表格之间无间距 */
+  line-height: 1.4;             /* 减少行高 */
+}
+#permission_subsets_info strong {
+  font-size: 12px;
+  font-weight: 650;
+  color: #333;
+  display: block;
+  margin-bottom: 2px;           /* 减少标题下方间距 */
+}
+
+/* ── Inheritance checkboxes ── */
+#adv_perm_inheritance_div,
+#adv_perm_replace_child_div {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid #f0f0f0;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+}
+#adv_perm_inheritance_div input,
+#adv_perm_replace_child_div input {
+  margin-top: 2px;
+  accent-color: #1a73e8;
+  flex-shrink: 0;
+}
+
+/* ── Warning text ── */
+#adv_perm_replace_child_permissions_label::after {
+  content: " ⚠ This will overwrite existing permissions on child objects.";
+  display: block;
+  font-size: 11px;
+  color: #c0392b;
+  margin-top: 2px;
+}
+
+/* ── Folder accordion ── */
+.ui-accordion .ui-accordion-header {
+  background: #fafafa !important;
+  border: none !important;
+  border-bottom: 1px solid #ebebeb !important;
+  border-radius: 0 !important;
+  color: #222 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  padding: 8px 10px !important;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.ui-accordion .ui-accordion-header:hover { background: #f0f0f0 !important; }
+.ui-accordion .ui-accordion-content {
+  padding: 1em 4px 1em 2em !important;
+  background: #fff !important;
+}
+
+/* ── "Open Permissions" file-tree buttons ── */
+.permbutton {
+  background: transparent !important;
+  border: 1px solid #e0e0e0 !important;
+  color: #555 !important;
+  border-radius: 5px !important;
+  padding: 3px 9px !important;
+  font-size: 11px !important;
+  cursor: pointer !important;
+  margin-left: 8px !important;
+  transition: background 0.12s, border-color 0.12s;
+}
+.permbutton:hover {
+  background: #f0f0f0 !important;
+  border-color: #bbb !important;
+}
+
+/* ── No-close dialog ── */
+.no-close .ui-dialog-titlebar-close { display: none; }
+
+/* ── Submit button in task panel ── */
+.top-banner-button {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.15s;
+}
+.top-banner-button:hover { 
+    background: #333;
+    padding: 5px 17px;
+    border: 1px orange solid;
+}
+
+.no-close .ui-dialog-titlebar-close {
+    display: none;
+}
+
+/* --- Added for Risk Aversion: Highlight dangerous actions --- */
+.btn-danger {
+    background-color: #ff4d4d !important;
+    color: white !important;
+    border: 1px solid #cc0000 !important;
+}
+
+.btn-danger:hover {
+    background-color: #cc0000 !important;
+}
+
+/* Added for Risk Aversion: Make warning text stand out */
+.warning-text {
+    color: #cc0000;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #ffeeee;
+    border: 1px solid #cc0000;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
